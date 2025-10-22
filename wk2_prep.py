@@ -18,7 +18,7 @@ class Iteration:
                 if (self.data[j] < self.data[indMin]):
                     indMin = j
             #index smallest located, move item to position i, swap (data[i], data[indMin])
-                self.data[indMin], self.data[i] = self.data[i], self.data[indMin]
+            self.data[indMin], self.data[i] = self.data[i], self.data[indMin]
         return self.data
 
 
@@ -59,6 +59,42 @@ class Iteration:
                 end = mid - 1
             else:
                 return mid
+        print("Not found")
+        return -1
+
+    def binaryRecurSearch(self, item):
+        return self._binaryRecurSearch(self.data, 0, len(self.data) - 1, item)
+    def _binaryRecurSearch(self, arr, start, end, item):
+        #arr has to be a sorted array
+        if (start <= end):
+            mid = (start + end) // 2
+            if (arr[mid] < item):
+                return self._binaryRecurSearch(arr, mid + 1, end, item)
+            elif (arr[mid] > item):
+                return self._binaryRecurSearch(arr, start, mid - 1, item)
+            else:
+                return mid
+        print("Not found")
+        return -1
+
+    def ternarySearch(self, item):
+        return self._ternarySearch(self.data, 0, len(self.data) - 1, item)
+    def _ternarySearch(self, arr, start, end, item):
+#arr has to be a sorted array
+        if (start <= end):
+            third1 = (end - start) // 3 + start
+            if (arr[third1] == item):
+                return third1
+            elif (arr[third1] > item):
+                return self._ternarySearch(arr, start, third1 - 1, item)
+            else:
+                third2 = (end - start) // 3 + third1
+                if (arr[third2] == item):
+                    return third2
+                elif (arr[third2] > item):
+                    return self._ternarySearch(arr, third1 + 1, third2 - 1, item)
+                else:
+                    return self._ternarySearch(arr, third2 + 1, end, item)
         print("Not found")
         return -1
 
